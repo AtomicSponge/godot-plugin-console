@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://xjcj5omyk4ch"]
+
+[ext_resource type="Script" uid="uid://qq4ndnjiqgqt" path="res://addons/console/console.gd" id="1_5t81l"]
+
+[node name="Console" type="CanvasLayer"]
+script = ExtResource("1_5t81l")
+
+[node name="ConsoleContainer" type="VBoxContainer" parent="."]
+offset_left = 2.0
+offset_top = 482.0
+offset_right = 552.0
+offset_bottom = 720.0
+
+[node name="ConsoleWindow" type="RichTextLabel" parent="ConsoleContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+scroll_following = true
+
+[node name="ConsoleInput" type="LineEdit" parent="ConsoleContainer"]
+layout_mode = 2
+
+[connection signal="text_changed" from="ConsoleContainer/ConsoleInput" to="." method="_on_console_input_text_changed"]
+[connection signal="text_submitted" from="ConsoleContainer/ConsoleInput" to="." method="_on_console_input_text_submitted"]
