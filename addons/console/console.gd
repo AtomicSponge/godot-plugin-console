@@ -10,7 +10,7 @@ var _command_table: Dictionary[StringName, Callable] = {}
 
 ## Add text to the console window.  Automatically appends a new line.
 ## If called when the console is not visible it will display for a few seconds.
-func add_text(new_text: String, seconds: float = 3.0) -> void:
+func add_text(new_text: String, seconds: float = 4.0) -> void:
 	if ConsoleWindow == null: return
 	ConsoleWindow.add_text(new_text + "\n")
 	show_output(seconds)
@@ -59,14 +59,13 @@ func is_opened() -> bool:
 	return visible
 
 ## Show the console window for a few seconds.
-func show_output(seconds: float = 3.0) -> void:
+func show_output(seconds: float = 4.0) -> void:
 	if not visible:
 		_show_console(false)
 		ConsoleInput.hide()
 		await get_tree().create_timer(seconds).timeout
 		if visible:
 			_hide_console(false)
-		ConsoleInput.show()
 
 func _process_command(command: String) -> void:
 	if not command.begins_with("/"): return
