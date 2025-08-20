@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "Mobile")
 [autoload]
 
 Console="*res://addons/console/console.tscn"
+Commands="*res://example/commands.gd"
 
 [editor_plugins]
 
