@@ -3,12 +3,14 @@ extends CanvasLayer
 @onready var ConsoleContainer: VBoxContainer = $ConsoleContainer
 @onready var ConsoleWindow: RichTextLabel = $ConsoleContainer/ConsoleWindow
 @onready var ConsoleInput: LineEdit = $ConsoleContainer/ConsoleInput
+@onready var FaderA: AnimationPlayer = $ConsoleContainer/ConsoleWindow/FaderA
+@onready var FaderB: AnimationPlayer = $ConsoleContainer/ConsoleInput/FaderB
 
 var _command_table: Dictionary[StringName, Callable] = {}
 
 ## Add text to the console window.  Automatically appends a new line.
 ## If called when the console is not visible it will display for a few seconds.
-func add_text(new_text: String, seconds: float = 4.0) -> void:
+func add_text(new_text: String, seconds: float = 3.0) -> void:
 	if ConsoleWindow == null: return
 	ConsoleWindow.add_text(new_text + "\n")
 	show_output(seconds)
@@ -57,13 +59,13 @@ func is_opened() -> bool:
 	return visible
 
 ## Show the console window for a few seconds.
-func show_output(seconds: float = 4.0) -> void:
+func show_output(seconds: float = 3.0) -> void:
 	if not visible:
-		show()
+		_show_console(false)
 		ConsoleInput.hide()
 		await get_tree().create_timer(seconds).timeout
 		if visible:
-			hide()
+			_hide_console(false)
 		ConsoleInput.show()
 
 func _process_command(command: String) -> void:
@@ -88,18 +90,30 @@ func _on_console_input_text_submitted(new_text: String) -> void:
 func _on_console_input_text_changed(_new_text: String) -> void:
 	if visible and Input.is_action_pressed("console"):
 		ConsoleInput.clear()
-		hide()
+		_hide_console()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("console") and Input.is_action_just_pressed("console"):
 		if not visible:
-			show()
+			_show_console()
 			ConsoleInput.show()
 			ConsoleInput.has_focus()
 			ConsoleInput.call_deferred("edit")
 		else:
 			ConsoleInput.clear()
-			hide()
+			_hide_console()
+
+func _show_console(play_b: bool = true) -> void:
+	show()
+	FaderA.play("Fade")
+	if play_b: FaderB.play("Fade")
+	await FaderA.animation_finished
+
+func _hide_console(play_b: bool = true) -> void:
+	FaderA.play_backwards("Fade")
+	if play_b: FaderB.play_backwards("Fade")
+	await FaderA.animation_finished
+	hide()
 
 func _ready() -> void:
 	set_window_bg_color(Color(0.0, 0.0, 0.0, 0.2))

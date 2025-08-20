@@ -11,7 +11,7 @@ See the included example project for a working explanation.
 
 ## API Reference
 
-- `add_text(new_text: String, seconds: float = 4.0) -> void`:  Add text to the console window.  Automatically appends a new line.  If called when the console is not visible it will display for a few seconds.
+- `add_text(new_text: String, seconds: float = 3.0) -> void`:  Add text to the console window.  Automatically appends a new line.  If called when the console is not visible it will display for a few seconds.
 
 - `set_console_size(new_size: Vector2) -> void`:  Set the console size.  This does not include the LineEdit height.  That is adjusted by the font size.
 
@@ -27,4 +27,4 @@ See the included example project for a working explanation.
 
 - `is_opened() -> bool`:  Check if the console is opened.
 
-- `show_output(seconds: float = 4.0) -> void`:  Show the console window for a few seconds.
+- `show_output(seconds: float = 3.0) -> void`:  Show the console window for a few seconds.
