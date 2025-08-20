@@ -48,6 +48,7 @@ func set_input_bg_color(new_color: Color) -> void:
 	ConsoleInput.theme = theme
 
 ## Adds a new command to the console.
+## The callback must accept a single string as the argument.
 func add_command(command: StringName, callback: Callable) -> void:
 	_command_table[command] = callback
 
