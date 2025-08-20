@@ -1,8 +1,13 @@
 # Godot Console Plugin
 
+A console system for Godot.  Create your own commands or use it for chat!
 
 ## How it Works
 
+After adding the plugin to your project, a new Console autoload will be added.  You will then need to create a keymap called `console` and assign the key you want to use to open and close the console window.  Finally create another autoload script that will contain your command functions.
+You can then configure the console and add commands in the `_ready()` function.
+
+See the included example project for a working explanation.
 
 ## API Reference
 
