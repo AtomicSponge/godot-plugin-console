@@ -1,5 +1,7 @@
 extends Node
 
+@onready var Console := $Console
+
 func say_command(text: String) -> void:
 	Console.add_text(text)
 
